@@ -1,0 +1,198 @@
+/* Grefton overrides on top of the original Webflow stylesheet */
+
+/* Logo: PNG used as a mask so the nav can still tween its colour (currentColor) on scroll / menu open */
+.logo {
+  width: 10rem;
+  aspect-ratio: 1125 / 244;
+  background-color: currentColor;
+  -webkit-mask: url(/brand/logo-mark.png) no-repeat left center / contain;
+  mask: url(/brand/logo-mark.png) no-repeat left center / contain;
+}
+
+/* Call-to-action panels: normal headline size, wrapping text */
+.cta-base__info {
+  container-type: inline-size;
+}
+.cta-base__info h2 {
+  font-size: clamp(2.25rem, 4.2vw, 4.5rem);
+  line-height: 1.05;
+}
+/* "Planning your / outdoor / space?" three-line headline, sized to the panel width (container query units) */
+.cta-base__info h2.cta-headline {
+  font-size: min(var(--cta-size, 16cqw), 17vh);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Footer wordmark: the "Grefton Pools & Landscaping" logo, drawn as a mask so it takes the surrounding text colour */
+.footer-logo {
+  width: 100%;
+  margin-top: 3rem;
+  aspect-ratio: 1134 / 339;
+  background-color: var(--green--950, #38352c);
+  -webkit-mask: url(/brand/logo-pl-mark.png) no-repeat center / contain;
+  mask: url(/brand/logo-pl-mark.png) no-repeat center / contain;
+}
+
+/* Services: pinned photo (left) + paragraph under it, service list (right) highlighting one by one */
+.service-scroller {
+  height: calc(100vh + 5 * 38vh); /* scroll distance: about 38vh per service */
+  position: relative;
+}
+.service-scroller__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding-top: 6.5rem; /* clears the floating nav */
+  padding-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 6fr 5fr;
+  column-gap: 5rem;
+  align-items: center;
+}
+.service-scroller__left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-height: 0;
+}
+.service-scroller__media {
+  position: relative;
+  height: min(46vh, 30rem);
+  overflow: hidden;
+  border-radius: 0.25rem;
+  flex: none;
+}
+.service-scroller__img {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0); /* hidden until revealed; the first one is shown by the script */
+}
+.service-scroller__img:first-child {
+  clip-path: inset(0 0 0 0);
+}
+.service-scroller__img .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.service-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.service-intro p {
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.service-intro.is-mobile {
+  display: none;
+}
+.service-scroller__list {
+  display: flex;
+  flex-direction: column;
+  align-self: center; /* vertically centred next to the photo */
+  min-height: 29rem;  /* room for one expanded description, so the list does not jump */
+  justify-content: flex-start;
+  border-bottom: 1px solid rgb(56 53 44 / 0.25);
+}
+.service-scroller__item {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  column-gap: 0.5rem;
+  align-items: baseline;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgb(56 53 44 / 0.25);
+}
+.service-scroller__item h6,
+.service-scroller__item h3 {
+  opacity: 0.35;
+  transition: opacity 0.6s cubic-bezier(0.65, 0.05, 0, 1);
+}
+.service-scroller__item.is-active h6,
+.service-scroller__item.is-active h3 {
+  opacity: 1;
+}
+.service-scroller__item h3 {
+  font-size: clamp(1.6rem, 2.3vw, 2.4rem);
+  line-height: 1.05;
+}
+/* description stays closed until the service is highlighted, then opens */
+.service-scroller__item p {
+  grid-column: 2;
+  max-width: 28rem;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.7s cubic-bezier(0.65, 0.05, 0, 1), opacity 0.5s ease, margin-top 0.7s cubic-bezier(0.65, 0.05, 0, 1);
+}
+.service-scroller__item.is-active p {
+  max-height: 8rem;
+  opacity: 1;
+  margin-top: 0.75rem;
+}
+@media (max-width: 991px) {
+  .service-scroller__sticky { column-gap: 2rem; }
+}
+@media (max-width: 767px) {
+  .service-intro.is-desktop { display: none; }
+  .service-intro.is-mobile { display: flex; margin-bottom: 2.5rem; }
+  .service-scroller { height: calc(100vh + 5 * 32vh); }
+  .service-scroller__sticky {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    row-gap: 1.5rem;
+    align-items: start;
+    padding-top: 5.5rem;
+  }
+  .service-scroller__media { height: 30vh; }
+  .service-scroller__list { align-self: start; min-height: 0; }
+  .service-scroller__item { padding: 0.9rem 0; }
+  .service-scroller__item h3 { font-size: 1.6rem; }
+}
+
+/* Legal pages (privacy, terms, disclaimer, cookies) */
+.legal-body {
+  max-width: 46rem;
+}
+.legal-body__intro {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  margin-bottom: 3rem;
+}
+.legal-body__section {
+  padding: 1.75rem 0;
+  border-top: 1px solid rgb(56 53 44 / 0.25);
+}
+.legal-body__section h3 {
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  line-height: 1.15;
+  margin-bottom: 0.9rem;
+}
+.legal-body__section h3 span {
+  font-family: var(--font-family--golos, inherit);
+  font-size: 0.8rem;
+  opacity: 0.5;
+  margin-right: 0.5rem;
+}
+.legal-body__section p {
+  line-height: 1.55;
+  margin-bottom: 0.8rem;
+}
+
+/* Footer legal links */
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+.footer-legal__link {
+  text-decoration: none;
+  color: inherit;
+}
+.footer-legal__link:hover h6 {
+  text-decoration: underline;
+}

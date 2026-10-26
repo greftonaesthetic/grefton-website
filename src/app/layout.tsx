@@ -1,25 +1,32 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-
-const body = DM_Sans({ variable: "--font-body", subsets: ["latin"] });
-const display = Fraunces({ variable: "--font-display", subsets: ["latin"] });
+import NavGroup from "@/components/generated/NavGroup";
+import SiteEffects from "@/components/SiteEffects";
 
 export const metadata: Metadata = {
-  title: "Grefton | Landscaping & Outdoor Living in the UAE",
-  description:
-    "Grefton designs, builds and maintains gardens, pools and outdoor spaces across the UAE, from villa gardens to hospitality and community landscapes.",
+  title: "Grefton",
+  description: "Landscaping and outdoor living in the UAE.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${body.variable} ${display.variable} antialiased`}>
-      <body className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <html lang="en" className="js w-mod-js">
+      <head>
+        {/* Same font the original site loads through Google WebFont Loader */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
+      <body>
+        <NavGroup />
+        <div className="transition">
+          <div data-transition-wrap="" className="transition">
+            <div data-transition-dark="" className="transition__dark"></div>
+          </div>
+        </div>
+        {children}
+        <SiteEffects />
       </body>
     </html>
   );

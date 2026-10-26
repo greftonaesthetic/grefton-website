@@ -1,35 +1,4 @@
-@import "tailwindcss";
-
-:root {
-  --background: #faf8f3;
-  --foreground: #14211a;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand: #009444;
-  --color-brand-dark: #0b3d2a;
-  --color-brand-light: #e4f2e9;
-  --color-sand: #f1ebdf;
-  --color-ink-soft: #4b5a51;
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-body), system-ui, sans-serif;
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--font-display), Georgia, serif;
-  letter-spacing: -0.01em;
-}
+@import "../styles/webflow.css";
+@import "../styles/embed.css";
+@import "locomotive-scroll/dist/locomotive-scroll.css";
+@import "../styles/grefton.css";
